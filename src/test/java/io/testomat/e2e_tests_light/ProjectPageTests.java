@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ProjectPageTests {
     @Test
-    public void firstTest() {
+    public void userCanFindProjectWithTests() {
         open("https://app.testomat.io/");
 
         $("#content-desktop #user_email").setValue("ilinartem293@gmail.com");
