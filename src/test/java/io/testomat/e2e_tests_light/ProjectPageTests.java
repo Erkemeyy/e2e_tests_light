@@ -22,7 +22,7 @@ public class ProjectPageTests extends BaseTest{
     static String userName = env.get("EMAIL");
     static String password = env.get("PASSWORD");
     static String targetProjectName = "test Project Artem";
-    static String automatedProjectName = "Project created with automation";
+    static String projectNameForCreatingProject = "Project created with automation";
     ElementsCollection visibleProjectsOnProjectPage = $$("#grid ul li").filter(visible);
 
 
@@ -44,8 +44,6 @@ public class ProjectPageTests extends BaseTest{
 
         selectProject(targetProjectName);
 
-        sleep(10000);
-
         waitForProjectPageIsLoaded(targetProjectName);
     }
 
@@ -66,7 +64,7 @@ public class ProjectPageTests extends BaseTest{
     }
 
     @Test
-    public void anotherTest(){
+    public void userCanSearchProjectWithZeroTestsAndReturnToFullList(){
 
         searchProject(targetProjectName);
 
@@ -96,7 +94,7 @@ public class ProjectPageTests extends BaseTest{
     }
 
     private static void shouldDisplayCorrectProjectNameInHeader() {
-        $(".sticky-header h2").shouldHave(text(automatedProjectName));
+        $(".sticky-header h2").shouldHave(text(projectNameForCreatingProject));
     }
 
     private static void countOfTestsCasesShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
@@ -128,7 +126,7 @@ public class ProjectPageTests extends BaseTest{
 
     private static void createProject() {
         $(".common-btn-primary").click();
-        $("[placeholder='My Project']").setValue(automatedProjectName);
+        $("[placeholder='My Project']").setValue(projectNameForCreatingProject);
         $("#project-create-btn .common-btn-primary").click();
     }
 
