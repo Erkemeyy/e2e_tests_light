@@ -1,5 +1,6 @@
 package io.testomat.e2e_tests_light;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
@@ -18,9 +19,12 @@ import static io.testomat.e2e_tests_light.utils.StringParser.parseIntegerFromStr
 public class ProjectPageTests extends BaseTest{
 
     static String baseUrl = env.get("BASE_URL");
-    static String userName = env.get("PROJECT_USERNAME");
+    static String userName = env.get("EMAIL");
     static String password = env.get("PASSWORD");
-    String targetProjectName = "test Project Artem";
+    static String targetProjectName = "test Project Artem";
+    static String automatedProjectName = "Project created with automation";
+    ElementsCollection visibleProjectsOnProjectPage = $$("#grid ul li").filter(visible);
+
 
     @BeforeAll
     static void openTestomatAndLogin(){
@@ -36,7 +40,6 @@ public class ProjectPageTests extends BaseTest{
     @Test
     public void userCanFindProjectWithTests() {
 
-
         searchProject(targetProjectName);
 
         selectProject(targetProjectName);
@@ -47,13 +50,20 @@ public class ProjectPageTests extends BaseTest{
     }
 
     @Test
-    void userCanCreateEmptyProject() {
+    public void userCanCreateEmptyProject() {
+        int numberOfProjects = visibleProjectsOnProjectPage.size();
 
         createProject();
+
         waitForWelcomePanelAndCloseIt();
 
-    }
+        shouldDisplayCorrectProjectNameInHeader();
 
+        openHomePage();
+
+        compareNumberOfProjectsAfterCreatingOne(numberOfProjects);
+
+    }
 
     @Test
     public void anotherTest(){
@@ -65,11 +75,28 @@ public class ProjectPageTests extends BaseTest{
 
         countOfTestsCasesShouldBeEqualTo(targetProject, 0);
 
+        openHomePage();
+
+        totalCountOfProjectsGraterThan(3);
+
     }
 
     @NotNull
-    private static ElementsCollection countOfProjectsShouldBeEqualTo(int expectedSize) {
-        return $$("#grid ul li").filter(visible).shouldHave(size(1));
+    private ElementsCollection countOfProjectsShouldBeEqualTo(int expectedSize) {
+        return visibleProjectsOnProjectPage.shouldHave(size(expectedSize));
+    }
+
+    private void compareNumberOfProjectsAfterCreatingOne(int numberOfProjects) {
+        visibleProjectsOnProjectPage.shouldHave(CollectionCondition.size(numberOfProjects + 1));
+    }
+
+    private void totalCountOfProjectsGraterThan(int expectedTotalCount) {
+        int numberOfProjects = visibleProjectsOnProjectPage.size();
+        Assertions.assertTrue(numberOfProjects > expectedTotalCount);
+    }
+
+    private static void shouldDisplayCorrectProjectNameInHeader() {
+        $(".sticky-header h2").shouldHave(text(automatedProjectName));
     }
 
     private static void countOfTestsCasesShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
@@ -101,7 +128,7 @@ public class ProjectPageTests extends BaseTest{
 
     private static void createProject() {
         $(".common-btn-primary").click();
-        $("[placeholder='My Project']").setValue("Project created with automation");
+        $("[placeholder='My Project']").setValue(automatedProjectName);
         $("#project-create-btn .common-btn-primary").click();
     }
 
