@@ -5,10 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.text;
@@ -35,6 +32,18 @@ public class ProjectPageTests extends BaseTest{
     @BeforeEach
     void openHomePage(){
         open(baseUrl);
+    }
+
+    //TODO: Delete method for project which created after automation
+    @AfterAll
+    static void deleteCreatedProject(){
+        searchProject(projectNameForCreatingProject);
+        $("[title='Project created with automation']").click();
+        $(".sticky-header h2").shouldHave(text(projectNameForCreatingProject));
+        $("[aria-describedby='ember23-popper']").click();
+        $(".red-btn").shouldBe(visible).click();
+
+
     }
 
     @Test
@@ -112,8 +121,8 @@ public class ProjectPageTests extends BaseTest{
         $(Selectors.byText(targetProjectName)).click();
     }
 
-    private void searchProject(String targetProjectName) {
-        $("#search").setValue(this.targetProjectName);
+    private static void searchProject(String targetProjectName) {
+        $("#search").setValue(targetProjectName);
     }
 
     private static void waitForWelcomePanelAndCloseIt() {
