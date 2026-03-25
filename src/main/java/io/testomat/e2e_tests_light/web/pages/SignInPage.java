@@ -3,7 +3,6 @@ package io.testomat.e2e_tests_light.web.pages;
 import com.codeborne.selenide.Selenide;
 
 import static com.codeborne.selenide.Condition.hidden;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class SignInPage {
