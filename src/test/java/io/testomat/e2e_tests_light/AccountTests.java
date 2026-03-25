@@ -1,5 +1,6 @@
 package io.testomat.e2e_tests_light;
 
+import io.testomat.e2e_tests_light.web.pages.SignInPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class AccountTests {
     @BeforeAll
     static void openTestomatAndLogin(){
         open(ProjectPageTests.baseUrl);
-        ProjectPageTests.loginUser(ProjectPageTests.userName, ProjectPageTests.password);
+        new SignInPage().loginUser(ProjectPageTests.userName, ProjectPageTests.password);
     }
     @Test
     public void userIsAbleToSignOutFromAccount(){

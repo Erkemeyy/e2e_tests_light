@@ -2,8 +2,10 @@ package io.testomat.e2e_tests_light;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import io.testomat.e2e_tests_light.web.pages.ProjectPage;
+import io.testomat.e2e_tests_light.web.pages.ProjectsPage;
+import io.testomat.e2e_tests_light.web.pages.SignInPage;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.*;
 
@@ -21,39 +23,46 @@ public class ProjectPageTests extends BaseTest{
     static String targetProjectName = "test Project Artem";
     static String projectNameForCreatingProject = "Project created with automation";
     ElementsCollection visibleProjectsOnProjectPage = $$("#grid ul li").filter(visible);
+    private static ProjectsPage projectsPage = new ProjectsPage();
+    private ProjectPage projectPage = new ProjectPage();
+    private static SignInPage signInPage = new SignInPage();
 
 
     @BeforeAll
     static void openTestomatAndLogin(){
-        open(baseUrl);
-        loginUser(userName, password);
+        signInPage.open();
+        signInPage.loginUser(userName, password);
+        projectsPage.signInSuccess();
     }
 
     @BeforeEach
-    void openHomePage(){
-        open(baseUrl);
+    void openProjectsPage(){
+        projectsPage.open();
+
     }
 
     //TODO: Delete method for project which created after automation
-    @AfterAll
-    static void deleteCreatedProject(){
-        searchProject(projectNameForCreatingProject);
-        $("[title='Project created with automation']").click();
-        $(".sticky-header h2").shouldHave(text(projectNameForCreatingProject));
-        $("[aria-describedby='ember23-popper']").click();
-        $(".red-btn").shouldBe(visible).click();
-
-
-    }
+//    @AfterAll
+//    static void deleteCreatedProject(){
+//        searchProject(projectNameForCreatingProject);
+//        $("[title='Project created with automation']").click();
+//        $(".sticky-header h2").shouldHave(text(projectNameForCreatingProject));
+//        $("[aria-describedby='ember23-popper']").click();
+//        $(".red-btn").shouldBe(visible).click();
+//
+//
+//    }
 
     @Test
     public void userCanFindProjectWithTests() {
 
-        searchProject(targetProjectName);
+//        projectsPage.isLoaded();
 
-        selectProject(targetProjectName);
+        projectsPage.searchProject(targetProjectName);
 
-        waitForProjectPageIsLoaded(targetProjectName);
+        projectsPage.selectProject(targetProjectName);
+
+        projectPage.isLoaded(targetProjectName);
     }
 
     @Test
@@ -66,7 +75,7 @@ public class ProjectPageTests extends BaseTest{
 
         shouldDisplayCorrectProjectNameInHeader();
 
-        openHomePage();
+        projectsPage.open();
 
         compareNumberOfProjectsAfterCreatingOne(numberOfProjects);
 
@@ -75,14 +84,14 @@ public class ProjectPageTests extends BaseTest{
     @Test
     public void userCanSearchProjectWithZeroTestsAndReturnToFullList(){
 
-        searchProject(targetProjectName);
+        ProjectsPage.searchProject(targetProjectName);
 
         //search only one visible project from all projects
         SelenideElement targetProject = countOfProjectsShouldBeEqualTo(1).first();
 
         countOfTestsCasesShouldBeEqualTo(targetProject, 0);
 
-        openHomePage();
+        projectsPage.open();
 
         totalCountOfProjectsGraterThan(3);
 
@@ -112,19 +121,6 @@ public class ProjectPageTests extends BaseTest{
         Assertions.assertEquals(expectedCount, actualCountOfTests);
     }
 
-    private static void waitForProjectPageIsLoaded(String targetProjectName) {
-        $(".first h2").shouldHave(text(targetProjectName));
-        $(".first [href*='/readme']").shouldHave(text("Readme"));
-    }
-
-    private static void selectProject(String targetProjectName) {
-        $(Selectors.byText(targetProjectName)).click();
-    }
-
-    private static void searchProject(String targetProjectName) {
-        $("#search").setValue(targetProjectName);
-    }
-
     private static void waitForWelcomePanelAndCloseIt() {
         sleep(10000);
         $("#welcometotestomatio").shouldBe(visible);
@@ -137,13 +133,5 @@ public class ProjectPageTests extends BaseTest{
         $(".common-btn-primary").click();
         $("[placeholder='My Project']").setValue(projectNameForCreatingProject);
         $("#project-create-btn .common-btn-primary").click();
-    }
-
-    public static void loginUser(String email, String password ) {
-        $("#content-desktop #user_email").setValue(email);
-        $("#content-desktop #user_password").setValue(password);
-        $("#content-desktop #user_remember_me").click();
-        $("#content-desktop [name=\"commit\"]").click();
-        $(".common-flash-success").shouldBe(visible);
     }
 }
