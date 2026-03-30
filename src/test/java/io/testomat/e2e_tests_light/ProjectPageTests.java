@@ -9,19 +9,6 @@ import org.junit.jupiter.api.Test;
 
 public class ProjectPageTests extends BaseTest{
 
-    static String targetProjectName = "test Project Artem";
-    private static ProjectsPage projectsPage = new ProjectsPage();
-    private ProjectPage projectPage = new ProjectPage();
-    private static SignInPage signInPage = new SignInPage();
-    private static BaseTest baseTest = new BaseTest();
-
-
-    @BeforeAll
-    static void openTestomatAndLogin(){
-        signInPage.open();
-        signInPage.loginUser(userName, password);
-        projectsPage.signInSuccess();
-    }
 
     @BeforeEach
     void openProjectsPage(){

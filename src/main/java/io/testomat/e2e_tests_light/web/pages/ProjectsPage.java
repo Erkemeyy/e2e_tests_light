@@ -20,17 +20,19 @@ public class ProjectsPage {
 
     public void signInSuccess() {
         $("#container .common-flash-success").shouldBe(visible);
-    }
+}
 
-    public void isLoaded(){
+    public ProjectsPage isLoaded(){
         searchInput.shouldBe(visible);
+        return this;
     }
 
-    public void searchProject(String targetProjectName) {
+    public ProjectsPage searchProject(String targetProjectName) {
         searchInput.setValue(targetProjectName);
-    }
+        return  this;
+}
 
-    public static void selectProject(String targetProjectName) {
+    public void selectProject(String targetProjectName) {
         $(Selectors.byText(targetProjectName)).click();
     }
 

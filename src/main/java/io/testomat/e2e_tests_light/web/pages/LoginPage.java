@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
 
-    public void isLoaded() {
+public void isLoaded() {
         $("#content-desktop h2").shouldHave(text("Sign In"));
         $("#content-desktop .common-flash-wrapper").shouldBe(visible);
     }
