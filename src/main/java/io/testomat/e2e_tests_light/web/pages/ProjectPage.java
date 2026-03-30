@@ -21,7 +21,6 @@ public class ProjectPage {
     }
 
     public static void waitForWelcomePanelAndCloseIt() {
-        sleep(10000);
         $("#welcometotestomatio").shouldBe(visible);
         $("#welcometotestomatio").shouldHave(text("Welcome to Testomat.io"));
         $(".detail-view-header-wrapper .third-btn").click();
