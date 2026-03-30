@@ -3,7 +3,6 @@ package io.testomat.e2e_tests_light.web.pages;
 import com.codeborne.selenide.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
-
 import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
