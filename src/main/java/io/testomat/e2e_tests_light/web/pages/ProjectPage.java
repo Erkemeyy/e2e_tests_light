@@ -32,8 +32,8 @@ public class ProjectPage {
     }
 
     public static void waitForWelcomePanelAndCloseIt() {
-        $("#welcometotestomatio").shouldBe(visible);
-        $("#welcometotestomatio").shouldHave(text("Welcome to Testomat.io"));
+        $(panelHeader).shouldBe(visible);
+        $(panelHeader).shouldHave(text("Welcome to Testomat.io"));
         $(".detail-view-header-wrapper .third-btn").click();
 
     }

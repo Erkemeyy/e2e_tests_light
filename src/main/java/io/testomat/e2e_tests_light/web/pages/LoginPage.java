@@ -8,6 +8,6 @@ public class LoginPage {
 
 public void isLoaded() {
         $("#content-desktop h2").shouldHave(text("Sign In"));
-        $("#content-desktop .common-flash-wrapper").shouldBe(visible);
+        $("#content-desktop h1").shouldBe(visible);
     }
 }

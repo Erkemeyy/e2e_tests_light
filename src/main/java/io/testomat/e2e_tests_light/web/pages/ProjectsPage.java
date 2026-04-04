@@ -3,6 +3,8 @@ package io.testomat.e2e_tests_light.web.pages;
 import com.codeborne.selenide.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
+
+import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -42,19 +44,15 @@ public class ProjectsPage {
     }
 
     public void compareNumberOfProjectsAfterCreatingOne(int numberOfProjects) {
-        visibleProjectsOnProjectPage.shouldHave(CollectionCondition.size(numberOfProjects + 1));
+        visibleProjectsOnProjectPage.shouldHave(size(numberOfProjects + 1));
     }
 
     public void totalCountOfProjectsGraterThan(int expectedTotalCount) {
-        var numberOfProjects = visibleProjectsOnProjectPage.size();
-        Assertions.assertTrue(numberOfProjects > expectedTotalCount);
+        visibleProjectsOnProjectPage.shouldHave(sizeGreaterThan(expectedTotalCount)) ;
     }
 
     public void countOfTestsCasesShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
         targetProject.shouldHave(text(expectedCount + " tests"));
-//        String countOfTests = targetProject.$("p").getText();
-//        Integer actualCountOfTests = parseIntegerFromString(countOfTests);
-//        Assertions.assertEquals(expectedCount, actualCountOfTests);
     }
 
     public void totalCountOfProjectsIsVisible(){
@@ -64,6 +62,6 @@ public class ProjectsPage {
     public void signOutFromAccount() {
         $(".common-flash-success").shouldBe(visible);
         $("#user-menu-button").click();
-        $(".block ").click();
+        $(".block").click();
     }
 }

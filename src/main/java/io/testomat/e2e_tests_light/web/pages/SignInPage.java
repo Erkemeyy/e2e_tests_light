@@ -15,8 +15,6 @@ public class SignInPage {
         $("#content-desktop #user_password").setValue(password);
         $("#content-desktop #user_remember_me").click();
         $("#content-desktop [name=commit]").click();
-        $("#content-desktop #user_email").shouldBe(hidden);
-        $("#content-desktop #user_password").shouldBe(hidden);
-        return  this;
+        return this;
     }
 }

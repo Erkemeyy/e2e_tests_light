@@ -18,16 +18,6 @@ public class ProjectPageTests extends BaseTest{
     }
 
     //TODO: Delete method for project which created after automation
-//    @AfterAll
-//    static void deleteCreatedProject(){
-//        searchProject(projectNameForCreatingProject);
-//        $("[title='Project created with automation']").click();
-//        $(".sticky-header h2").shouldHave(text(projectNameForCreatingProject));
-//        $("[aria-describedby='ember23-popper']").click();
-//        $(".red-btn").shouldBe(visible).click();
-//
-//
-//    }
 
     @Test
     public void userCanFindProjectWithTests() {
