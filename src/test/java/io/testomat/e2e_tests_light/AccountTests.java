@@ -8,18 +8,14 @@ import org.junit.jupiter.api.Test;
 
 public class AccountTests extends BaseTest{
 
-    private LoginPage loginPage = new LoginPage();
-    private static ProjectsPage projectsPage = new ProjectsPage();
-    private static SignInPage signInPage = new SignInPage();
-
     @BeforeAll
     static void openTestomatAndLogin(){
-        signInPage.open();
-        signInPage.loginUser(userName, password);
+        application.signInPage.open();
+        application.signInPage.loginUser(userName, password);
     }
     @Test
     public void userIsAbleToSignOutFromAccount(){
-        projectsPage.signOutFromAccount();
-        loginPage.isLoaded();
+        application.projectsPage.signOutFromAccount();
+        application.loginPage.isLoaded();
     }
 }
