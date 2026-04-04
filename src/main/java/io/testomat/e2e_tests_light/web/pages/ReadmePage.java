@@ -1,6 +1,7 @@
 package io.testomat.e2e_tests_light.web.pages;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -32,6 +33,12 @@ public class ReadmePage {
 
     public ReadmePage isLoaded() {
         $(".setting-header").shouldHave(text("Readme"));
+        return this;
+    }
+
+    public ReadmePage verifyReadmeContainsNewText(String expectedText){
+        $$("div span").findBy(text(expectedText)).shouldBe(visible);
+
         return this;
     }
 }

@@ -12,8 +12,8 @@ public class ProjectPageTests extends BaseTest{
 
     @BeforeEach
     void openProjectsPage(){
-        projectsPage.open();
-        projectsPage.isLoaded();
+        application.projectsPage.open();
+        application.projectsPage.isLoaded();
 
     }
 
@@ -22,46 +22,46 @@ public class ProjectPageTests extends BaseTest{
     @Test
     public void userCanFindProjectWithTests() {
 
-        projectsPage.isLoaded();
+        application.projectsPage.isLoaded();
 
-        projectsPage.searchProject(targetProjectName);
+        application.projectsPage.searchProject(targetProjectName);
 
-        projectsPage.selectProject(targetProjectName);
+        application.projectsPage.selectProject(targetProjectName);
 
-        projectPage.isLoaded(targetProjectName);
+        application.projectPage.isLoaded(targetProjectName);
     }
 
     @Test
     public void userCanCreateEmptyProject() {
-        var numberOfProjects = projectsPage.visibleProjectsOnProjectPage.size();
+        var numberOfProjects = application.projectsPage.visibleProjectsOnProjectPage.size();
 
-        projectPage.createProject();
+        application.projectPage.createProject();
 
-        projectPage.waitForWelcomePanelAndCloseIt();
+        application.projectPage.waitForWelcomePanelAndCloseIt();
 
-        projectPage.shouldDisplayCorrectProjectNameInHeader();
+        application.projectPage.shouldDisplayCorrectProjectNameInHeader();
 
-        projectsPage.open();
+        application.projectsPage.open();
 
-        projectsPage.compareNumberOfProjectsAfterCreatingOne(numberOfProjects);
+        application.projectsPage.compareNumberOfProjectsAfterCreatingOne(numberOfProjects);
 
     }
 
     @Test
     public void userCanSearchProjectWithZeroTestsAndReturnToFullList(){
 
-        projectsPage.searchProject(targetProjectName);
+        application.projectsPage.searchProject(targetProjectName);
 
         //search only one visible project from all projects
-        var targetProject = projectsPage.countOfProjectsShouldBeEqualTo(1).first();
+        var targetProject = application.projectsPage.countOfProjectsShouldBeEqualTo(1).first();
 
-        projectsPage.countOfTestsCasesShouldBeEqualTo(targetProject, 0);
+        application.projectsPage.countOfTestsCasesShouldBeEqualTo(targetProject, 0);
 
-        projectsPage.open();
+        application.projectsPage.open();
 
-        projectsPage.totalCountOfProjectsIsVisible();
+        application.projectsPage.totalCountOfProjectsIsVisible();
 
-        projectsPage.totalCountOfProjectsGraterThan(3);
+        application.projectsPage.totalCountOfProjectsGraterThan(3);
 
     }
 }
