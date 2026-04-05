@@ -3,7 +3,6 @@ package io.testomat.e2e_tests_light.common;
 import io.testomat.e2e_tests_light.web.pages.*;
 
 public class Application {
-    public final LoginPage loginPage = new LoginPage();
     public final ProjectsPage projectsPage = new ProjectsPage();
     public final ProjectPage projectPage = new ProjectPage();
     public final SignInPage signInPage = new SignInPage();

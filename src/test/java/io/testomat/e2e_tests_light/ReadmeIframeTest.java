@@ -27,12 +27,4 @@ public class ReadmeIframeTest extends BaseTest{
                 .clickOnCancel();
 
     }
-
-
-
-    @Test
-    @DisplayName("Readme test")
-    void readmeTest(){
-
-    }
 }

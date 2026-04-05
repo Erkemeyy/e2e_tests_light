@@ -1,21 +1,16 @@
 package io.testomat.e2e_tests_light;
 
-import io.testomat.e2e_tests_light.web.pages.LoginPage;
-import io.testomat.e2e_tests_light.web.pages.ProjectsPage;
-import io.testomat.e2e_tests_light.web.pages.SignInPage;
+import com.codeborne.selenide.junit5.TextReportExtension;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith({TextReportExtension.class})
 public class AccountTests extends BaseTest{
 
-    @BeforeAll
-    static void openTestomatAndLogin(){
-        application.signInPage.open();
-        application.signInPage.loginUser(userName, password);
-    }
     @Test
     public void userIsAbleToSignOutFromAccount(){
         application.projectsPage.signOutFromAccount();
-        application.loginPage.isLoaded();
+        application.signInPage.isLoaded();
     }
 }

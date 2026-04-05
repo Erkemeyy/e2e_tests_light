@@ -1,12 +1,12 @@
 package io.testomat.e2e_tests_light;
 
-import io.testomat.e2e_tests_light.web.pages.ProjectPage;
-import io.testomat.e2e_tests_light.web.pages.ProjectsPage;
-import io.testomat.e2e_tests_light.web.pages.SignInPage;
-import org.junit.jupiter.api.BeforeAll;
+import com.codeborne.selenide.junit5.TextReportExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+
+@ExtendWith({TextReportExtension.class})
 public class ProjectPageTests extends BaseTest{
 
 
@@ -22,46 +22,31 @@ public class ProjectPageTests extends BaseTest{
     @Test
     public void userCanFindProjectWithTests() {
 
-        application.projectsPage.isLoaded();
-
-        application.projectsPage.searchProject(targetProjectName);
-
-        application.projectsPage.selectProject(targetProjectName);
-
-        application.projectPage.isLoaded(targetProjectName);
+        application.projectsPage.isLoaded()
+                .searchProject(targetProjectName)
+                .selectProject(targetProjectName);
     }
 
     @Test
     public void userCanCreateEmptyProject() {
-        var numberOfProjects = application.projectsPage.visibleProjectsOnProjectPage.size();
 
-        application.projectPage.createProject();
-
-        application.projectPage.waitForWelcomePanelAndCloseIt();
-
-        application.projectPage.shouldDisplayCorrectProjectNameInHeader();
-
-        application.projectsPage.open();
-
-        application.projectsPage.compareNumberOfProjectsAfterCreatingOne(numberOfProjects);
+        application.projectPage.createProject()
+            .waitForWelcomePanelAndCloseIt()
+            .shouldDisplayCorrectProjectNameInHeader();
+        application.projectsPage.open()
+            .compareNumberOfProjectsAfterCreatingOne(application.projectsPage.getProjectsCount());
 
     }
 
     @Test
     public void userCanSearchProjectWithZeroTestsAndReturnToFullList(){
-
-        application.projectsPage.searchProject(targetProjectName);
-
         //search only one visible project from all projects
+        application.projectsPage.searchProject(targetProjectName);
         var targetProject = application.projectsPage.countOfProjectsShouldBeEqualTo(1).first();
-
-        application.projectsPage.countOfTestsCasesShouldBeEqualTo(targetProject, 0);
-
-        application.projectsPage.open();
-
-        application.projectsPage.totalCountOfProjectsIsVisible();
-
-        application.projectsPage.totalCountOfProjectsGraterThan(3);
+        application.projectsPage.countOfTestsCasesShouldBeEqualTo(targetProject, 0)
+                .open();
+        application.projectsPage.totalCountOfProjectsIsVisible()
+                .totalCountOfProjectsGraterThan(application.projectsPage.getProjectsCount() - 1);
 
     }
 }

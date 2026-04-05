@@ -6,6 +6,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class ProjectPage {
 
@@ -27,20 +28,24 @@ public class ProjectPage {
         return this;
     }
 
-    public static void shouldDisplayCorrectProjectNameInHeader() {
+    //recheck
+    public ProjectPage shouldDisplayCorrectProjectNameInHeader() {
         $(".sticky-header h2").shouldHave(text(projectNameForCreatingProject));
+        return this;
     }
 
-    public static void waitForWelcomePanelAndCloseIt() {
+    public ProjectPage waitForWelcomePanelAndCloseIt() {
         $(panelHeader).shouldBe(visible);
         $(panelHeader).shouldHave(text("Welcome to Testomat.io"));
         $(".detail-view-header-wrapper .third-btn").click();
+        return this;
 
     }
 
-    public static void createProject() {
+    public ProjectPage createProject() {
         $(".common-btn-primary").click();
         $("[placeholder='My Project']").setValue(projectNameForCreatingProject);
         $("#project-create-btn .common-btn-primary").click();
+        return this;
     }
 }
