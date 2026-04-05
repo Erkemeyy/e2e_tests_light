@@ -1,9 +1,13 @@
 package io.testomat.e2e_tests_light;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.testomat.e2e_tests_light.common.Application;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class BaseTest {
     protected static Dotenv env = Dotenv.load();
@@ -18,6 +22,11 @@ public class BaseTest {
         application.signInPage.open();
         application.signInPage.loginUser(userName, password);
         application.projectsPage.signInSuccess();
+    }
+
+    @AfterAll
+    static void tearDown(){
+        closeWebDriver();
     }
 
     static {
