@@ -10,6 +10,8 @@ public class AccountTests extends BaseTest{
     @Test
     public void userIsAbleToSignOutFromAccount(){
         application.projectsPage.signOutFromAccount();
-        application.signInPage.isLoaded();
+        application.signInPage.isLoaded()
+                .contentIsClicable()
+                .verifyUrlOnSignInPage();
     }
 }

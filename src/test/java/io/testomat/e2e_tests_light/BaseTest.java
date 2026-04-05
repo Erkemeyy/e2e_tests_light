@@ -1,7 +1,6 @@
 package io.testomat.e2e_tests_light;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.testomat.e2e_tests_light.common.Application;
 import org.junit.jupiter.api.AfterAll;

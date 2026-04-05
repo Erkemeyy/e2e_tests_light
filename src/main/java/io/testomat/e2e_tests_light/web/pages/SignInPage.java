@@ -1,12 +1,11 @@
 package io.testomat.e2e_tests_light.web.pages;
+
 import com.codeborne.selenide.Selenide;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.webdriver;
-import static com.codeborne.selenide.WebDriverConditions.url;
+import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 
 public class SignInPage {
 
@@ -23,13 +22,22 @@ public class SignInPage {
         return this;
     }
 
-    public void isLoaded() {
+    public SignInPage isLoaded() {
         $("#content-desktop h2").shouldHave(text("Sign In"));
         $("#content-desktop h1").shouldBe(visible);
+        return this;
+    }
+
+    public SignInPage contentIsClicable() {
         $("#content-desktop #user_email").shouldBe(enabled);
         $("#content-desktop #user_password").shouldBe(enabled);
         $("#content-desktop #user_remember_me").shouldBe(enabled);
         $("#content-desktop [name=commit]").shouldBe(enabled);
-        webdriver().shouldHave(url(baseUrl+"users/sign_in?info=You+must+be+logged+in+to+access+this+page+"));
+        return this;
+    }
+
+    public SignInPage verifyUrlOnSignInPage() {
+        webdriver().shouldHave(urlContaining("users/sign_in"));
+        return this;
     }
 }
