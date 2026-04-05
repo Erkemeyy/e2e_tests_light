@@ -29,12 +29,13 @@ public class ProjectPageTests extends BaseTest{
 
     @Test
     public void userCanCreateEmptyProject() {
+        var initialProjectsCount = application.projectsPage.getProjectsCount();
 
         application.projectPage.createProject()
             .waitForWelcomePanelAndCloseIt()
             .shouldDisplayCorrectProjectNameInHeader();
         application.projectsPage.open()
-            .compareNumberOfProjectsAfterCreatingOne(application.projectsPage.getProjectsCount());
+            .compareNumberOfProjectsAfterCreatingOne(initialProjectsCount + 1);
 
     }
 
@@ -42,9 +43,12 @@ public class ProjectPageTests extends BaseTest{
     public void userCanSearchProjectWithZeroTestsAndReturnToFullList(){
         //search only one visible project from all projects
         application.projectsPage.searchProject(targetProjectName);
+
         var targetProject = application.projectsPage.countOfProjectsShouldBeEqualTo(1).first();
+
         application.projectsPage.countOfTestsCasesShouldBeEqualTo(targetProject, 0)
                 .open();
+
         application.projectsPage.totalCountOfProjectsIsVisible()
                 .totalCountOfProjectsGraterThan(application.projectsPage.getProjectsCount() - 1);
 

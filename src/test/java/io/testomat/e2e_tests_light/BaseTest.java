@@ -19,8 +19,8 @@ public class BaseTest {
 
     @BeforeAll
     static void openTestomatAndLogin(){
-        application.signInPage.open();
-        application.signInPage.loginUser(userName, password);
+        application.signInPage.open()
+                .loginUser(userName, password);
         application.projectsPage.signInSuccess();
     }
 
