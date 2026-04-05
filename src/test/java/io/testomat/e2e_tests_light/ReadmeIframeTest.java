@@ -16,7 +16,9 @@ public class ReadmeIframeTest extends BaseTest{
                 .searchProject(targetProjectName)
                 .selectProject(targetProjectName);
 
-        application.projectPage.openReadme().clickOnEdit();
+        application.projectPage.isLoaded(targetProjectName)
+                .openReadme()
+                .clickOnEdit();
 
         application.readmePage.isLoaded()
                 .clickOnEditReadme()
