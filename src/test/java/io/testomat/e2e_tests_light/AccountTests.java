@@ -11,7 +11,7 @@ public class AccountTests extends BaseTest{
     public void userIsAbleToSignOutFromAccount(){
         application.projectsPage.signOutFromAccount();
         application.signInPage.isLoaded()
-                .contentIsClicable()
+                .contentIsClickable()
                 .verifyUrlOnSignInPage();
     }
 }

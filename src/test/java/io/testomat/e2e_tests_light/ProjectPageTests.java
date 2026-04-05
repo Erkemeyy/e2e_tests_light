@@ -50,7 +50,7 @@ public class ProjectPageTests extends BaseTest{
                 .open();
 
         application.projectsPage.totalCountOfProjectsIsVisible()
-                .totalCountOfProjectsGraterThan(application.projectsPage.getProjectsCount() - 1);
+                .totalCountOfProjectsGreaterThan(application.projectsPage.getProjectsCount() - 1);
 
     }
 }

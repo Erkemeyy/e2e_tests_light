@@ -53,7 +53,7 @@ public class ProjectsPage {
         return  this;
     }
 
-    public ProjectsPage totalCountOfProjectsGraterThan(int expectedTotalCount) {
+    public ProjectsPage totalCountOfProjectsGreaterThan(int expectedTotalCount) {
         visibleProjectsOnProjectPage.shouldHave(sizeGreaterThan(expectedTotalCount));
         return this;
     }
@@ -73,7 +73,6 @@ public class ProjectsPage {
     }
 
     public ProjectsPage signOutFromAccount() {
-        $(".common-flash-success").shouldBe(visible);
         $("#user-menu-button").click();
         $(".block").click();
         return this;

@@ -28,7 +28,7 @@ public class SignInPage {
         return this;
     }
 
-    public SignInPage contentIsClicable() {
+    public SignInPage contentIsClickable() {
         $("#content-desktop #user_email").shouldBe(enabled);
         $("#content-desktop #user_password").shouldBe(enabled);
         $("#content-desktop #user_remember_me").shouldBe(enabled);
