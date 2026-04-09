@@ -1,39 +1,46 @@
 package io.testomat.e2e_tests_light.web.pages;
 
-import com.codeborne.selenide.*;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Assertions;
 
-import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class ProjectsPage {
 
-    private SelenideElement searchInput = $("#search");
+    private SelenideElement searchInput = $(".common-page-header #search");
     public ElementsCollection visibleProjectsOnProjectPage = $$("#grid ul li").filter(visible);
 
-    public void open(){
+    public ProjectsPage open(){
         Selenide.open("");
+        return this;
     }
 
-    public void signInSuccess() {
+    public ProjectsPage signInSuccess() {
         $("#container .common-flash-success").shouldBe(visible);
-    }
+        return this;
+}
 
-    public void isLoaded(){
+    public ProjectsPage isLoaded(){
         searchInput.shouldBe(visible);
+        return this;
     }
 
-    public void searchProject(String targetProjectName) {
+    public ProjectsPage searchProject(String targetProjectName) {
         searchInput.setValue(targetProjectName);
-    }
+        return this;
+}
 
-    public static void selectProject(String targetProjectName) {
-        $(Selectors.byText(targetProjectName)).click();
+    public ProjectsPage selectProject(String targetProjectName) {
+        $(byText(targetProjectName)).click();
+        return this;
     }
 
     @NotNull
@@ -41,25 +48,33 @@ public class ProjectsPage {
         return visibleProjectsOnProjectPage.shouldHave(size(expectedSize));
     }
 
-    public void compareNumberOfProjectsAfterCreatingOne(int numberOfProjects) {
-        visibleProjectsOnProjectPage.shouldHave(size(numberOfProjects + 1));
+    public ProjectsPage compareNumberOfProjectsAfterCreatingOne(int numberOfProjects) {
+        visibleProjectsOnProjectPage.shouldHave(size(numberOfProjects));
+        return  this;
     }
 
-    public void totalCountOfProjectsGraterThan(int expectedTotalCount) {
-        visibleProjectsOnProjectPage.shouldHave(sizeGreaterThan(expectedTotalCount)) ;
+    public ProjectsPage totalCountOfProjectsGreaterThan(int expectedTotalCount) {
+        visibleProjectsOnProjectPage.shouldHave(sizeGreaterThan(expectedTotalCount));
+        return this;
     }
 
-    public void countOfTestsCasesShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
+    public ProjectsPage countOfTestsCasesShouldBeEqualTo(SelenideElement targetProject, int expectedCount) {
         targetProject.shouldHave(text(expectedCount + " tests"));
+        return this;
     }
 
-    public void totalCountOfProjectsIsVisible(){
+    public int getProjectsCount(){
+        return  visibleProjectsOnProjectPage.size();
+    }
+
+    public ProjectsPage totalCountOfProjectsIsVisible(){
         $("#container").shouldBe(visible);
+        return this;
     }
 
-    public void signOutFromAccount() {
-        $(".common-flash-success").shouldBe(visible);
+    public ProjectsPage signOutFromAccount() {
         $("#user-menu-button").click();
         $(".block").click();
+        return this;
     }
 }

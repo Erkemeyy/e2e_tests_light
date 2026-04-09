@@ -1,32 +1,19 @@
 package io.testomat.e2e_tests_light;
 
-import io.testomat.e2e_tests_light.web.pages.ProjectPage;
-import io.testomat.e2e_tests_light.web.pages.ProjectsPage;
-import io.testomat.e2e_tests_light.web.pages.SignInPage;
-import org.junit.jupiter.api.BeforeAll;
+import com.codeborne.selenide.junit5.TextReportExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+
+@ExtendWith({TextReportExtension.class})
 public class ProjectPageTests extends BaseTest{
 
-    static String targetProjectName = "test Project Artem";
-    private static ProjectsPage projectsPage = new ProjectsPage();
-    private ProjectPage projectPage = new ProjectPage();
-    private static SignInPage signInPage = new SignInPage();
-    private static BaseTest baseTest = new BaseTest();
-
-
-    @BeforeAll
-    static void openTestomatAndLogin(){
-        signInPage.open();
-        signInPage.loginUser(userName, password);
-        projectsPage.signInSuccess();
-    }
 
     @BeforeEach
     void openProjectsPage(){
-        projectsPage.open();
-        projectsPage.isLoaded();
+        application.projectsPage.open();
+        application.projectsPage.isLoaded();
 
     }
 
@@ -35,46 +22,35 @@ public class ProjectPageTests extends BaseTest{
     @Test
     public void userCanFindProjectWithTests() {
 
-        projectsPage.isLoaded();
-
-        projectsPage.searchProject(targetProjectName);
-
-        projectsPage.selectProject(targetProjectName);
-
-        projectPage.isLoaded(targetProjectName);
+        application.projectsPage.isLoaded()
+                .searchProject(targetProjectName)
+                .selectProject(targetProjectName);
     }
 
     @Test
     public void userCanCreateEmptyProject() {
-        var numberOfProjects = projectsPage.visibleProjectsOnProjectPage.size();
+        var initialProjectsCount = application.projectsPage.getProjectsCount();
 
-        projectPage.createProject();
-
-        projectPage.waitForWelcomePanelAndCloseIt();
-
-        projectPage.shouldDisplayCorrectProjectNameInHeader();
-
-        projectsPage.open();
-
-        projectsPage.compareNumberOfProjectsAfterCreatingOne(numberOfProjects);
+        application.projectPage.createProject()
+            .waitForWelcomePanelAndCloseIt()
+            .shouldDisplayCorrectProjectNameInHeader();
+        application.projectsPage.open()
+            .compareNumberOfProjectsAfterCreatingOne(initialProjectsCount + 1);
 
     }
 
     @Test
     public void userCanSearchProjectWithZeroTestsAndReturnToFullList(){
-
-        projectsPage.searchProject(targetProjectName);
-
         //search only one visible project from all projects
-        var targetProject = projectsPage.countOfProjectsShouldBeEqualTo(1).first();
+        application.projectsPage.searchProject(targetProjectName);
 
-        projectsPage.countOfTestsCasesShouldBeEqualTo(targetProject, 0);
+        var targetProject = application.projectsPage.countOfProjectsShouldBeEqualTo(1).first();
 
-        projectsPage.open();
+        application.projectsPage.countOfTestsCasesShouldBeEqualTo(targetProject, 0)
+                .open();
 
-        projectsPage.totalCountOfProjectsIsVisible();
-
-        projectsPage.totalCountOfProjectsGraterThan(3);
+        application.projectsPage.totalCountOfProjectsIsVisible()
+                .totalCountOfProjectsGreaterThan(application.projectsPage.getProjectsCount() - 1);
 
     }
 }
