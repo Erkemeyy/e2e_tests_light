@@ -1,15 +1,19 @@
 package io.testomat.e2e_tests_light.web.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.testomat.e2e_tests_light.utils.StringParser;
+import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ProjectPage {
 
     private static String projectNameForCreatingProject = "Project created with automation";
+    private static String testSuiteName = "Test suite created with automation";
     private static SelenideElement panelHeader = $("#welcometotestomatio");
 
     public ProjectPage isLoaded(String targetProjectName) {
@@ -48,4 +52,53 @@ public class ProjectPage {
         $("#project-create-btn .common-btn-primary").click();
         return this;
     }
+
+    public ProjectPage createSuite() {
+        $("#item-title").setValue(testSuiteName);
+        $(".ml-16 .mt-1 .primary-btn").click();
+        return this;
+
+    }
+
+    public ProjectPage verifyTestSuiteIsCreated() {
+        $(byText(testSuiteName)).shouldBe(visible);
+        $(byText(testSuiteName)).shouldHave(text(testSuiteName));
+        return this;
+    }
+
+    public ProjectPage verifyTestSuiteHasZeroTest() {
+        $("#ember82 small").shouldBe(visible);
+        String text = $("#ember82 small").text();
+        StringParser parser = new StringParser();
+        int countOfTestsAfterCreationSuite = parser.parseIntegerFromString(text);
+        Assertions.assertTrue(countOfTestsAfterCreationSuite == 0);
+
+        return this;
+    }
+
+    public ProjectPage openTestSuiteWindow() {
+        $(byText(testSuiteName)).click();
+        return this;
+    }
+
+    public ProjectPage verifyHeaderNameOfSuiteWindow() {
+        $(".mb-4 .text-lg").shouldBe(visible);
+        $(".mb-4 .text-lg").shouldHave(text(testSuiteName));
+        return this;
+    }
+
+    public ProjectPage openDropdown() {
+        $("#ember105").click();
+        return this;
+    }
+
+    public ProjectPage deleteTestSuit() {
+        $(".red").click();
+        confirm();
+
+        return this;
+    }
+
+    $("#selec")
+
 }
