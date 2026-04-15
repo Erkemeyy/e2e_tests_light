@@ -99,6 +99,4 @@ public class ProjectPage {
         return this;
     }
 
-    $("#selec")
-
 }
