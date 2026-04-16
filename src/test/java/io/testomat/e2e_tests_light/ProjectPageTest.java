@@ -23,6 +23,7 @@ public class ProjectPageTest extends BaseTest{
     }
 
     @Test
+    @Order(2)
     public void userIsAbleToDeleteSuite(){
         application.projectPage.openTestSuiteWindow()
                 .verifyHeaderNameOfSuiteWindow()

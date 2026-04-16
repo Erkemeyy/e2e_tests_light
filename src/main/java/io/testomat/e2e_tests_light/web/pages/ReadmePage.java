@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class ReadmePage {
     public ReadmePage clickOnEditReadme(){
-        $("#ember3 .ml-16  button").click();
+        $(byText("Edit Readme")).click();
         switchTo().frame($("#modal-overlays iframe[src='/ember-monaco/frame.html']"));
         return  this;
     }

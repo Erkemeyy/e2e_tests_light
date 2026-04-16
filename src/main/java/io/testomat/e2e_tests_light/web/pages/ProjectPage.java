@@ -67,8 +67,8 @@ public class ProjectPage {
     }
 
     public ProjectPage verifyTestSuiteHasZeroTest() {
-        $("#ember82 small").shouldBe(visible);
-        String text = $("#ember82 small").text();
+        $(".gap-x-2 small").shouldBe(visible);
+        String text = $(".gap-x-2 small").text();
         StringParser parser = new StringParser();
         int countOfTestsAfterCreationSuite = parser.parseIntegerFromString(text);
         Assertions.assertTrue(countOfTestsAfterCreationSuite == 0);
@@ -88,7 +88,7 @@ public class ProjectPage {
     }
 
     public ProjectPage openDropdown() {
-        $("#ember105").click();
+        $(".detail-view-header-wrapper .ember-basic-dropdown").click(); //.sticky-header .space-x-2
         return this;
     }
 
