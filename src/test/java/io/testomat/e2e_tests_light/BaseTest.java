@@ -20,14 +20,14 @@ public class BaseTest {
     protected static Application application = new Application();
 
     @BeforeAll
-    static void openTestomatAndLogin(){
+    static void openTestomatAndLogin() {
         application.signInPage.open()
                 .loginUser(userName, password);
         application.projectsPage.signInSuccess();
     }
 
     @AfterAll
-    static void tearDown(){
+    static void tearDown() {
         closeWebDriver();
     }
 

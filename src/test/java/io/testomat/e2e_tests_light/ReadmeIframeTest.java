@@ -3,12 +3,12 @@ package io.testomat.e2e_tests_light;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ReadmeIframeTest extends BaseTest{
+public class ReadmeIframeTest extends BaseTest {
 
 
     @Test
     @DisplayName("Update readme text in iframe")
-    void updateReadmeIframeTest(){
+    void updateReadmeIframeTest() {
         application.projectsPage.isLoaded()
                 .searchProject(targetProjectName)
                 .selectProject(targetProjectName);

@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProjectPageTest extends BaseTest{
+public class ProjectPageTest extends BaseTest {
 
     @Test
     @Order(1)
-    public void userIsAbleToCreateSuite(){
+    public void userIsAbleToCreateSuite() {
         application.projectsPage.isLoaded()
                 .searchProject(targetProjectName)
                 .selectProject(targetProjectName);
@@ -18,13 +18,13 @@ public class ProjectPageTest extends BaseTest{
         application.projectPage.isLoaded(targetProjectName)
                 .createSuite()
                 .verifyTestSuiteIsCreated()
-                .verifyTestSuiteHasZeroTest();
+                .verifyTestSuiteHasZeroTest(0);
 
     }
 
     @Test
     @Order(2)
-    public void userIsAbleToDeleteSuite(){
+    public void userIsAbleToDeleteSuite() {
         application.projectPage.openTestSuiteWindow()
                 .verifyHeaderNameOfSuiteWindow()
                 .openDropdown()

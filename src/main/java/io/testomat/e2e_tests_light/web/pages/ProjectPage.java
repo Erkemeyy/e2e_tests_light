@@ -32,7 +32,6 @@ public class ProjectPage {
         return this;
     }
 
-    //recheck
     public ProjectPage shouldDisplayCorrectProjectNameInHeader() {
         $(".sticky-header h2").shouldHave(text(projectNameForCreatingProject));
         return this;
@@ -66,13 +65,11 @@ public class ProjectPage {
         return this;
     }
 
-    public ProjectPage verifyTestSuiteHasZeroTest() {
+    public ProjectPage verifyTestSuiteHasZeroTest(int expectedCount) {
         $(".gap-x-2 small").shouldBe(visible);
         String text = $(".gap-x-2 small").text();
-        StringParser parser = new StringParser();
-        int countOfTestsAfterCreationSuite = parser.parseIntegerFromString(text);
-        Assertions.assertTrue(countOfTestsAfterCreationSuite == 0);
-
+        int countOfTestsAfterCreationSuite = StringParser.parseIntegerFromString(text);
+        Assertions.assertEquals(expectedCount, countOfTestsAfterCreationSuite);
         return this;
     }
 

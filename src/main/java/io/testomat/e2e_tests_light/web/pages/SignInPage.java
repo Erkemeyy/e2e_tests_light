@@ -9,12 +9,12 @@ import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 
 public class SignInPage {
 
-    public SignInPage open(){
+    public SignInPage open() {
         Selenide.open("/users/sign_in");
-        return  this;
+        return this;
     }
 
-    public SignInPage loginUser(String email, String password ) {
+    public SignInPage loginUser(String email, String password) {
         $("#content-desktop #user_email").setValue(email);
         $("#content-desktop #user_password").setValue(password);
         $("#content-desktop #user_remember_me").click();

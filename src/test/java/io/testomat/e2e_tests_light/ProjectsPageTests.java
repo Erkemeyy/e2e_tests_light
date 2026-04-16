@@ -4,11 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-public class ProjectsPageTests extends BaseTest{
+public class ProjectsPageTests extends BaseTest {
 
 
     @BeforeEach
-    void openProjectsPage(){
+    void openProjectsPage() {
         application.projectsPage.open();
         application.projectsPage.isLoaded();
 
@@ -29,15 +29,15 @@ public class ProjectsPageTests extends BaseTest{
         var initialProjectsCount = application.projectsPage.getProjectsCount();
 
         application.projectPage.createProject()
-            .waitForWelcomePanelAndCloseIt()
-            .shouldDisplayCorrectProjectNameInHeader();
+                .waitForWelcomePanelAndCloseIt()
+                .shouldDisplayCorrectProjectNameInHeader();
         application.projectsPage.open()
-            .compareNumberOfProjectsAfterCreatingOne(initialProjectsCount + 1);
+                .compareNumberOfProjectsAfterCreatingOne(initialProjectsCount + 1);
 
     }
 
     @Test
-    public void userCanSearchProjectWithZeroTestsAndReturnToFullList(){
+    public void userCanSearchProjectWithZeroTestsAndReturnToFullList() {
         //search only one visible project from all projects
         application.projectsPage.searchProject(targetProjectName);
 
@@ -49,5 +49,10 @@ public class ProjectsPageTests extends BaseTest{
         application.projectsPage.totalCountOfProjectsIsVisible()
                 .totalCountOfProjectsGreaterThan(application.projectsPage.getProjectsCount() - 1);
 
+    }
+
+    @Test
+    public void verifyTestCountForAllProjects() {
+        application.projectsPage.compareEachProjectCountOfTests();
     }
 }
