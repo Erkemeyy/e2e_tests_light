@@ -80,7 +80,7 @@ public class ProjectsPage {
         var labelCountOfTests = $$("ul li p")
                 .shouldHave(CollectionCondition.sizeGreaterThan(0));
         for (SelenideElement labelCountOfTest : labelCountOfTests) {
-            labelCountOfTest.shouldHave(Condition.text("0 tests"));
+            labelCountOfTest.shouldHave(Condition.exactText("0 tests"));
         }
         return this;
     }

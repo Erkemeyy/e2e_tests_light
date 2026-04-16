@@ -9,11 +9,12 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static java.lang.System.currentTimeMillis;
 
 public class ProjectPage {
 
     private static String projectNameForCreatingProject = "Project created with automation";
-    private static String testSuiteName = "Test suite created with automation";
+    private String testSuiteName = "Test suite " + currentTimeMillis();
     private static SelenideElement panelHeader = $("#welcometotestomatio");
 
     public ProjectPage isLoaded(String targetProjectName) {
