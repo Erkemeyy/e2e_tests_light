@@ -13,9 +13,9 @@ import static java.lang.System.currentTimeMillis;
 
 public class ProjectPage {
 
-    private static String projectNameForCreatingProject = "Project created with automation";
+    private String projectNameForCreatingProject = "Project created with automation";
     private String testSuiteName = "Test suite " + currentTimeMillis();
-    private static SelenideElement panelHeader = $("#welcometotestomatio");
+    private SelenideElement panelHeader = $("#welcometotestomatio");
 
     public ProjectPage isLoaded(String targetProjectName) {
         $(".first h2").shouldHave(text(targetProjectName));
