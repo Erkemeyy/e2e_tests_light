@@ -31,7 +31,7 @@ public class Waits {
         this.wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(selector)));
     }
 
-    public void hasTest(String expectedText) {
+    public void hasText(String expectedText) {
         this.wait.until(ExpectedConditions.textToBe(selector, expectedText));
     }
 
@@ -42,18 +42,23 @@ public class Waits {
         )));
     }
 
-    public void customWait() {
+    public void textMatchesPattern(String expectedPattern) { // Додали параметр, який ми очікуємо
         this.wait.until(new ExpectedCondition<Boolean>() {
-            private String currentValue = null;
+            private String currentValue = "null";
 
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
                     WebElement targetElement = driver.findElement(selector);
-                    targetElement.isDisplayed();
-                    targetElement.isEnabled();
-                    currentValue = driver.findElement(selector).getText();
-                    return true;
+
+                    if (!targetElement.isDisplayed() || !targetElement.isEnabled()) {
+                        return false;
+                    }
+
+                    currentValue = targetElement.getText();
+
+                    return currentValue.matches(expectedPattern);
+
                 } catch (Exception e) {
                     return false;
                 }
@@ -61,7 +66,8 @@ public class Waits {
 
             @Override
             public String toString() {
-                return "text found by %s to match pattern \"%s\". Current text: \"%s\"";
+                return String.format("text found by %s to match pattern \"%s\". Current text: \"%s\"",
+                        selector.toString(), expectedPattern, currentValue);
             }
         });
     }

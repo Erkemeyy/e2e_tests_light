@@ -1,8 +1,6 @@
 package io.testomat.e2e_tests_light.selenium.web.pages;
 
-import io.testomat.e2e_tests_light.selenium.web.common.Elements;import org.openqa.selenium.By;
-
-import static io.testomat.e2e_tests_light.selenium.web.common.WebDriverProvider.driver;
+import io.testomat.e2e_tests_light.selenium.web.common.Elements;
 
 public class LoginPageSelenium {
 

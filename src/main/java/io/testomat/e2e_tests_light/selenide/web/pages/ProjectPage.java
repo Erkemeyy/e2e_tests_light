@@ -90,7 +90,7 @@ public class ProjectPage {
         return this;
     }
 
-    public ProjectPage deleteTestSuit() {
+    public ProjectPage deleteTestSuite() {
         $(".red").click();
         confirm();
 

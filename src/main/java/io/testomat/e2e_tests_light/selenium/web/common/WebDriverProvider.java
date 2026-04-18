@@ -5,12 +5,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverProvider {
 
-    private static ThreadLocal<WebDriver> driver;
-
 
     private static final ThreadLocal<WebDriver> driverThreadLocal = ThreadLocal.withInitial(ChromeDriver::new);
-
-
 
     public static WebDriver driver() {
         return driverThreadLocal.get();

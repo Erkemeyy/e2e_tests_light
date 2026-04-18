@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 public class Elements {
 
 
-    public ElementsActions find(By locator) {
+    public static ElementsActions find(By locator) {
         return new ElementsActions(locator);
     }
 
@@ -15,6 +15,6 @@ public class Elements {
     }
 
     public static ElementsActions findByText(String targetText) {
-        return  new ElementsActions(By.xpath("//*[text()='"+ targetText+"']"));
+        return  new ElementsActions(By.xpath("//*[text()='"+ targetText + "']"));
     }
 }
