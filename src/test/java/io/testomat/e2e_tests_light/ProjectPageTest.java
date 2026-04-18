@@ -1,7 +1,6 @@
 package io.testomat.e2e_tests_light;
 
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
@@ -9,8 +8,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 public class ProjectPageTest extends BaseTest {
 
     @Test
-    @Order(1)
-    public void userIsAbleToCreateSuite() {
+    public void userIsAbleToCreateSuiteAndDeleteIt() {
         application.projectsPage.isLoaded()
                 .searchProject(targetProjectName)
                 .selectProject(targetProjectName);
@@ -19,15 +17,10 @@ public class ProjectPageTest extends BaseTest {
                 .createSuite()
                 .verifyTestSuiteIsCreated()
                 .verifyTestSuiteHasZeroTest(0);
-
-    }
-
-    @Test
-    @Order(2)
-    public void userIsAbleToDeleteSuite() {
         application.projectPage.openTestSuiteWindow()
                 .verifyHeaderNameOfSuiteWindow()
                 .openDropdown()
-                .deleteTestSuit();
+                .deleteTestSuite();
+
     }
 }
