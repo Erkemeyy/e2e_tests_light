@@ -1,7 +1,7 @@
-package io.testomat.e2e_tests_light.web.pages;
+package io.testomat.e2e_tests_light.selenide.web.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import io.testomat.e2e_tests_light.utils.StringParser;
+import io.testomat.e2e_tests_light.selenide.utils.StringParser;
 import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Condition.text;

@@ -1,4 +1,4 @@
-package io.testomat.e2e_tests_light;
+package io.testomat.e2e_tests_light.selenide;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package io.testomat.e2e_tests_light.web.pages;
+package io.testomat.e2e_tests_light.selenide.web.pages;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
