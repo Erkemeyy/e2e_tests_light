@@ -7,28 +7,28 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ReadmePage {
-    public ReadmePage clickOnEditReadme(){
+    public ReadmePage clickOnEditReadme() {
         $(byText("Edit Readme")).click();
         switchTo().frame($("#modal-overlays iframe[src='/ember-monaco/frame.html']"));
-        return  this;
+        return this;
     }
 
-    public ReadmePage editFirstLineInEditor(String targetText){
+    public ReadmePage editFirstLineInEditor(String targetText) {
         $(".view-lines div").click();
         $("textarea").setValue(targetText);
         return this;
     }
 
-    public ReadmePage clickOnUpdate(){
+    public ReadmePage clickOnUpdate() {
         switchTo().defaultContent();
         $(byText("Update")).click();
-        return  this;
+        return this;
     }
 
-    public ReadmePage clickOnCancel(){
+    public ReadmePage clickOnCancel() {
         switchTo().defaultContent();
         $(byText("Cancel")).click();
-        return  this;
+        return this;
     }
 
     public ReadmePage isLoaded() {
@@ -36,7 +36,7 @@ public class ReadmePage {
         return this;
     }
 
-    public ReadmePage verifyReadmeContainsNewText(String expectedText){
+    public ReadmePage verifyReadmeContainsNewText(String expectedText) {
         $$("div span").findBy(text(expectedText)).shouldBe(visible);
 
         return this;

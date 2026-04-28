@@ -1,8 +1,6 @@
 package io.testomat.e2e_tests_light.web.pages;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import org.jetbrains.annotations.NotNull;
 
 import static com.codeborne.selenide.CollectionCondition.size;
@@ -18,7 +16,7 @@ public class ProjectsPage {
     private SelenideElement searchInput = $(".common-page-header #search");
     public ElementsCollection visibleProjectsOnProjectPage = $$("#grid ul li").filter(visible);
 
-    public ProjectsPage open(){
+    public ProjectsPage open() {
         Selenide.open("");
         return this;
     }
@@ -26,9 +24,9 @@ public class ProjectsPage {
     public ProjectsPage signInSuccess() {
         $("#container .common-flash-success").shouldBe(visible);
         return this;
-}
+    }
 
-    public ProjectsPage isLoaded(){
+    public ProjectsPage isLoaded() {
         searchInput.shouldBe(visible);
         return this;
     }
@@ -36,7 +34,7 @@ public class ProjectsPage {
     public ProjectsPage searchProject(String targetProjectName) {
         searchInput.setValue(targetProjectName);
         return this;
-}
+    }
 
     public ProjectsPage selectProject(String targetProjectName) {
         $(byText(targetProjectName)).click();
@@ -50,7 +48,7 @@ public class ProjectsPage {
 
     public ProjectsPage compareNumberOfProjectsAfterCreatingOne(int numberOfProjects) {
         visibleProjectsOnProjectPage.shouldHave(size(numberOfProjects));
-        return  this;
+        return this;
     }
 
     public ProjectsPage totalCountOfProjectsGreaterThan(int expectedTotalCount) {
@@ -63,11 +61,11 @@ public class ProjectsPage {
         return this;
     }
 
-    public int getProjectsCount(){
-        return  visibleProjectsOnProjectPage.size();
+    public int getProjectsCount() {
+        return visibleProjectsOnProjectPage.size();
     }
 
-    public ProjectsPage totalCountOfProjectsIsVisible(){
+    public ProjectsPage totalCountOfProjectsIsVisible() {
         $("#container").shouldBe(visible);
         return this;
     }
@@ -75,6 +73,15 @@ public class ProjectsPage {
     public ProjectsPage signOutFromAccount() {
         $("#user-menu-button").click();
         $(".block").click();
+        return this;
+    }
+
+    public ProjectsPage compareEachProjectCountOfTests() {
+        var labelCountOfTests = $$("ul li p")
+                .shouldHave(CollectionCondition.sizeGreaterThan(0));
+        for (SelenideElement labelCountOfTest : labelCountOfTests) {
+            labelCountOfTest.shouldHave(Condition.exactText("0 tests"));
+        }
         return this;
     }
 }

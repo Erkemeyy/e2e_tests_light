@@ -1,13 +1,16 @@
 package io.testomat.e2e_tests_light;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.junit5.TextReportExtension;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.testomat.e2e_tests_light.common.Application;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
+@ExtendWith({TextReportExtension.class})
 public class BaseTest {
     protected static Dotenv env = Dotenv.load();
     protected static String userName = env.get("EMAIL");
@@ -17,14 +20,14 @@ public class BaseTest {
     protected static Application application = new Application();
 
     @BeforeAll
-    static void openTestomatAndLogin(){
+    static void openTestomatAndLogin() {
         application.signInPage.open()
                 .loginUser(userName, password);
         application.projectsPage.signInSuccess();
     }
 
     @AfterAll
-    static void tearDown(){
+    static void tearDown() {
         closeWebDriver();
     }
 
