@@ -1,9 +1,8 @@
-package io.testomat.e2e_tests_light.web.pages;
+package io.testomat.e2e_tests_light.selenide.web.pages;
 
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
-import io.testomat.e2e_tests_light.utils.StringParser;
-import org.junit.jupiter.api.Assertions;
+import io.testomat.e2e_tests_light.selenide.utils.StringParser;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -71,7 +70,11 @@ public class ProjectPage {
         $(byText("tests")).shouldBe(visible);
         String text = $(byText("tests")).text();
         int countOfTestsAfterCreationSuite = StringParser.parseIntegerFromString(text);
-        Assertions.assertEquals(expectedCount, countOfTestsAfterCreationSuite);
+        if (countOfTestsAfterCreationSuite != expectedCount) {
+            throw new AssertionError(
+                    "Expected tests count: " + expectedCount + ", but was: " + countOfTestsAfterCreationSuite
+            );
+        }
         return this;
     }
 

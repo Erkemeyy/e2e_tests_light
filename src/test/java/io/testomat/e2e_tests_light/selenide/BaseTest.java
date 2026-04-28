@@ -1,9 +1,9 @@
-package io.testomat.e2e_tests_light;
+package io.testomat.e2e_tests_light.selenide;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.junit5.TextReportExtension;
 import io.github.cdimascio.dotenv.Dotenv;
-import io.testomat.e2e_tests_light.common.Application;
+import io.testomat.e2e_tests_light.selenide.common.Application;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;

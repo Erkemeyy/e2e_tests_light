@@ -1,10 +1,8 @@
-package io.testomat.e2e_tests_light;
+package io.testomat.e2e_tests_light.selenide;
 
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 public class ProjectPageTest extends BaseTest {
 
     @Test
