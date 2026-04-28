@@ -1,5 +1,6 @@
 package io.testomat.e2e_tests_light.web.pages;
 
+import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import io.testomat.e2e_tests_light.utils.StringParser;
 import org.junit.jupiter.api.Assertions;
@@ -55,7 +56,7 @@ public class ProjectPage {
 
     public ProjectPage createSuite() {
         $("#item-title").setValue(testSuiteName);
-        $(".ml-16 .mt-1 .primary-btn").click();
+        $(byText("Suite")).click();
         return this;
 
     }
@@ -67,8 +68,8 @@ public class ProjectPage {
     }
 
     public ProjectPage verifyTestSuiteHasZeroTest(int expectedCount) {
-        $(".gap-x-2 small").shouldBe(visible);
-        String text = $(".gap-x-2 small").text();
+        $(byText("tests")).shouldBe(visible);
+        String text = $(byText("tests")).text();
         int countOfTestsAfterCreationSuite = StringParser.parseIntegerFromString(text);
         Assertions.assertEquals(expectedCount, countOfTestsAfterCreationSuite);
         return this;
@@ -80,8 +81,8 @@ public class ProjectPage {
     }
 
     public ProjectPage verifyHeaderNameOfSuiteWindow() {
-        $(".mb-4 .text-lg").shouldBe(visible);
-        $(".mb-4 .text-lg").shouldHave(text(testSuiteName));
+        $(byText(testSuiteName)).shouldBe(visible);
+        $(byText(testSuiteName)).shouldHave(text(testSuiteName));
         return this;
     }
 
@@ -91,7 +92,7 @@ public class ProjectPage {
     }
 
     public ProjectPage deleteTestSuite() {
-        $(".red").click();
+        $(byText("Delete suite with all tests")).click();
         confirm();
 
         return this;
